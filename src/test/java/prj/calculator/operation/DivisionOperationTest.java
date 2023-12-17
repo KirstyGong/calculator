@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DivisionOperationTest {
     private static final double DELTA = 0.000001d;
@@ -59,5 +60,15 @@ public class DivisionOperationTest {
         final double expected = 0.333333d;
 
         assertEquals(expected, result, DELTA);
+    }
+
+    @Test
+    void tesShouldThrowExceptionWhenNonZeroDivideZero() {
+        // Given
+        final double dividend = 3.0;
+        final double divisor = 0;
+
+        // Then
+        assertThrows(IllegalArgumentException.class, () -> divisionOperator.apply(dividend, divisor));
     }
 }

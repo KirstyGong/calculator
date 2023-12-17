@@ -18,6 +18,11 @@ public class DivisionOperation implements IArithmeticOperation {
     }
 
     public double apply(double a, double b) {
+
+        if (a != 0 && b == 0) {
+            throw new IllegalArgumentException("Can not divide 0");
+        }
+
         return a / b;
     }
 
