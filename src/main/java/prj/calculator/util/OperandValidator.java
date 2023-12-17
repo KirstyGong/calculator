@@ -1,6 +1,11 @@
 package prj.calculator.util;
 
 public class OperandValidator implements IValidator {
+
+    private static final String OPERAND_VALIDATION_RULE = "\\d+(\\.\\d+)?";
+    private static final int INPUT_SIZE_LIMIT = 9;
+
+
     private static OperandValidator SINGLE_INSTANCE;
 
     private OperandValidator() {
@@ -21,6 +26,10 @@ public class OperandValidator implements IValidator {
             return false;
         }
 
-        return input.matches("\\d+(\\.\\d+)?");
+        if (input.length() > INPUT_SIZE_LIMIT) {
+            return false;
+        }
+
+        return input.matches(OPERAND_VALIDATION_RULE);
     }
 }

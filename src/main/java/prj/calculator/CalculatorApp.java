@@ -35,6 +35,7 @@ public class CalculatorApp {
 
         while (true) {
             try {
+                System.out.println("Every input either takes an operand or operation and maximum operand input size is 9.");
                 calculate(operandInputReader, operationInputReader, arithmeticOperations);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());

@@ -42,10 +42,12 @@ public class OperandValidatorTest {
         assertTrue(result);
     }
 
-    @Test
-    void testCanFailInvalidOperandInput() {
-        //Given
-        String input = "a";
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "a",
+            "999999999999"
+    })
+    void testCanFailInvalidOperandInput(String input) {
 
         //When
         boolean result = operandValidator.validate(input);
