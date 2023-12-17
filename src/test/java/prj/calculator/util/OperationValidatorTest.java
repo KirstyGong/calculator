@@ -34,7 +34,9 @@ public class OperationValidatorTest {
             "+",
             "-",
             "*",
-            "/"
+            "/",
+            " +",
+            "+ "
     })
     void testCanPassValidOperatorInput(String input) {
         //Then
@@ -50,16 +52,5 @@ public class OperationValidatorTest {
         //Then
         assertFalse(operationValidator.validate(input));
     }
-
-    @ParameterizedTest
-    @ValueSource(strings = {
-            "+\n",
-            "\n+",
-    })
-    void testCanPassValidOperatorWithWhiteSpaceInput(String input) {
-        //Then
-        assertFalse(operationValidator.validate(input));
-    }
-
 
 }

@@ -26,6 +26,8 @@ public class OperationValidator implements IValidator {
             return false;
         }
 
-        return Arrays.stream(values()).anyMatch(operator -> operator.value().equals(input));
+        final String trimInput = input.trim();
+
+        return Arrays.stream(values()).anyMatch(operator -> operator.value().equals(trimInput));
     }
 }
