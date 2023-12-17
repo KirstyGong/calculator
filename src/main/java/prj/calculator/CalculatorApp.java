@@ -11,6 +11,13 @@ import prj.calculator.util.IValidator;
 import prj.calculator.util.OperandValidator;
 import prj.calculator.util.OperationValidator;
 
+import java.util.Map;
+
+import static prj.calculator.model.Operator.ADDITION_OPERATOR;
+import static prj.calculator.model.Operator.DIVISION_OPERATOR;
+import static prj.calculator.model.Operator.MULTIPLICATION_OPERATOR;
+import static prj.calculator.model.Operator.SUBTRACTION_OPERATOR;
+
 public class CalculatorApp {
 
 
@@ -20,10 +27,15 @@ public class CalculatorApp {
 
         IValidator operationValidator = OperationValidator.getInstance();
         InputReader operationInputReader = new InputReader(operationValidator);
+        Map<Operator, IArithmeticOperation>  arithmeticOperations = Map.of(ADDITION_OPERATOR, AdditionOperation.getInstance(),
+                SUBTRACTION_OPERATOR, SubtractionOperation.getInstance(),
+                MULTIPLICATION_OPERATOR, MultiplicationOperation.getInstance(),
+                DIVISION_OPERATOR, DivisionOperation.getInstance()
+        );
 
         while (true) {
             try {
-                calculate(operandInputReader, operationInputReader);
+                calculate(operandInputReader, operationInputReader, arithmeticOperations);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
                 continue;
@@ -32,29 +44,13 @@ public class CalculatorApp {
 
     }
 
-    public static void calculate(InputReader operandInputReader, InputReader operationInputReader) {
-        IArithmeticOperation arithmeticOperation = null;
+    public static void calculate(InputReader operandInputReader, InputReader operationInputReader, Map<Operator, IArithmeticOperation> arithmeticOperations) {
 
         final String firstNumber = operandInputReader.getInput();
         final String operator = operationInputReader.getInput();
         final String secondNumber = operandInputReader.getInput();
 
-        switch (Operator.getEnum(operator)) {
-            case ADDITION_OPERATOR:
-                arithmeticOperation = AdditionOperation.getInstance();
-                break;
-            case SUBTRACTION_OPERATOR:
-                arithmeticOperation = SubtractionOperation.getInstance();
-                break;
-            case MULTIPLICATION_OPERATOR:
-                arithmeticOperation = MultiplicationOperation.getInstance();
-                break;
-            case DIVISION_OPERATOR:
-                arithmeticOperation = DivisionOperation.getInstance();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid input");
-        }
+        final IArithmeticOperation arithmeticOperation = arithmeticOperations.get(Operator.getEnum(operator));
 
         double result = arithmeticOperation.apply(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber));
 
