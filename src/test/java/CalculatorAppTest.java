@@ -12,8 +12,6 @@ import prj.calculator.reader.InputReader;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,7 +33,6 @@ public class CalculatorAppTest {
     private SubtractionOperation mockedSubtractionOperation;
     private MultiplicationOperation mockedMultiplicationOperation;
     private DivisionOperation mockedDivisionOperation;
-    private IArithmeticOperation mockedIArithmeticOperation;
 
     @BeforeEach
     public void setup() {
@@ -45,7 +42,6 @@ public class CalculatorAppTest {
         mockedSubtractionOperation = mock(SubtractionOperation.class);
         mockedMultiplicationOperation = mock(MultiplicationOperation.class);
         mockedDivisionOperation = mock(DivisionOperation.class);
-        mockedIArithmeticOperation = mock(IArithmeticOperation.class);
 
 
         byteArrayOutputStream = new ByteArrayOutputStream();
@@ -66,7 +62,6 @@ public class CalculatorAppTest {
         when(mockOperandReader.getInput()).thenReturn(firstOperand, secondOperand);
         when(mockOperationReader.getInput()).thenReturn(ADDITION_OPERATOR.value());
         when(mockedAdditionOperation.apply(anyDouble(), anyDouble())).thenReturn(result);
-        when(mockedIArithmeticOperation.apply(anyDouble(), anyDouble())).thenReturn(result);
 
         final PrintStream out = new PrintStream(byteArrayOutputStream);
         System.setOut(out);
@@ -89,7 +84,6 @@ public class CalculatorAppTest {
         when(mockOperandReader.getInput()).thenReturn(firstOperand, secondOperand);
         when(mockOperationReader.getInput()).thenReturn(SUBTRACTION_OPERATOR.value());
         when(mockedSubtractionOperation.apply(anyDouble(), anyDouble())).thenReturn(result);
-        when(mockedIArithmeticOperation.apply(anyDouble(), anyDouble())).thenReturn(result);
 
         final PrintStream out = new PrintStream(byteArrayOutputStream);
         System.setOut(out);
@@ -112,7 +106,6 @@ public class CalculatorAppTest {
         when(mockOperandReader.getInput()).thenReturn(firstOperand, secondOperand);
         when(mockOperationReader.getInput()).thenReturn(MULTIPLICATION_OPERATOR.value());
         when(mockedMultiplicationOperation.apply(anyDouble(), anyDouble())).thenReturn(result);
-        when(mockedIArithmeticOperation.apply(anyDouble(), anyDouble())).thenReturn(result);
 
         final PrintStream out = new PrintStream(byteArrayOutputStream);
         System.setOut(out);
@@ -135,7 +128,6 @@ public class CalculatorAppTest {
         when(mockOperandReader.getInput()).thenReturn(firstOperand, secondOperand);
         when(mockOperationReader.getInput()).thenReturn(DIVISION_OPERATOR.value());
         when(mockedDivisionOperation.apply(anyDouble(), anyDouble())).thenReturn(result);
-        when(mockedIArithmeticOperation.apply(anyDouble(), anyDouble())).thenReturn(result);
 
         final PrintStream out = new PrintStream(byteArrayOutputStream);
         System.setOut(out);
