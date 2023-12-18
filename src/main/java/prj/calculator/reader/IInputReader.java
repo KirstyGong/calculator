@@ -1,6 +1,8 @@
 package prj.calculator.reader;
 
+import java.util.List;
+
 public interface IInputReader {
 
-    String getInput();
+    List<String> getInput();
 }
