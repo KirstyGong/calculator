@@ -1,6 +1,8 @@
 package prj.calculator.operation;
 
 
+import java.util.List;
+
 public class DivisionOperation implements IArithmeticOperation {
 
     private static DivisionOperation SINGLE_INSTANCE;
@@ -17,13 +19,17 @@ public class DivisionOperation implements IArithmeticOperation {
         return SINGLE_INSTANCE;
     }
 
-    public double apply(double a, double b) {
 
-        if (a != 0 && b == 0) {
-            throw new IllegalArgumentException("Can not divide 0");
-        }
-
-        return a / b;
+    @Override
+    public double apply(List<Double> inputs) {
+        return inputs.stream()
+                .mapToDouble(Double::doubleValue)
+                .reduce((a, b) -> {
+                    if (b == 0.0) {
+                        throw new IllegalArgumentException("Division by zero");
+                    }
+                    return a / b;
+                })
+                .orElseThrow();
     }
-
 }

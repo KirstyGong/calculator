@@ -3,6 +3,8 @@ package prj.calculator.operation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SubtractionOperatorTest {
@@ -18,11 +20,10 @@ public class SubtractionOperatorTest {
     @Test
     void testWholeNumberInputSubtraction() {
         //Given
-        final double minuend = 3;
-        final double subtrahend = 1;
+        final List<Double> inputs = List.of(3.0, 1.0);
 
         // When
-        final double result = subtractionOperator.apply(minuend, subtrahend);
+        final double result = subtractionOperator.apply(inputs);
 
         //Then
         final double expected = 2;
@@ -33,11 +34,10 @@ public class SubtractionOperatorTest {
     @Test
     void testDecimalInputSubtraction() {
         //Given
-        final double minuend = 3.3;
-        final double subtrahend = 1.1;
+        final List<Double> inputs = List.of(3.3, 1.1);
 
         // When
-        final double result = subtractionOperator.apply(minuend, subtrahend);
+        final double result = subtractionOperator.apply(inputs);
 
         //Then
         final double expected = 2.2;
@@ -48,11 +48,10 @@ public class SubtractionOperatorTest {
     @Test
     void testSubtractionWithNegativeResult() {
         //Given
-        final double minuend = 1.1;
-        final double subtrahend = 3.3;
+        final List<Double> inputs = List.of(1.1, 3.3);
 
         // When
-        final double result = subtractionOperator.apply(minuend, subtrahend);
+        final double result = subtractionOperator.apply(inputs);
 
         //Then
         final double expected = -2.2;

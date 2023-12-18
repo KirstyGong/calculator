@@ -1,6 +1,8 @@
 package prj.calculator.operation;
 
 
+import java.util.List;
+
 public class MultiplicationOperation implements IArithmeticOperation {
     private static MultiplicationOperation SINGLE_INSTANCE;
 
@@ -16,7 +18,11 @@ public class MultiplicationOperation implements IArithmeticOperation {
         return SINGLE_INSTANCE;
     }
 
-    public double apply(double a, double b) {
-        return a * b;
+    @Override
+    public double apply(List<Double> inputs) {
+        return inputs.stream()
+                .mapToDouble(Double::doubleValue)
+                .reduce((a, b) -> a * b)
+                .orElse(1.0);
     }
 }
