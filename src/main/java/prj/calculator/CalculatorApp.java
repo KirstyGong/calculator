@@ -20,32 +20,28 @@ import static prj.calculator.model.Operator.SUBTRACTION_OPERATOR;
 
 public class CalculatorApp {
 
+    private static CalculatorApp SINGLE_INSTANCE;
 
-    public static void main(String[] args) {
-        IValidator operandValidator = OperandValidator.getInstance();
-        InputReader operandInputReader = new InputReader(operandValidator);
+    private final InputReader operandInputReader;
+    private final InputReader operationInputReader;
+    private final Map<Operator, IArithmeticOperation> arithmeticOperations;
 
-        IValidator operationValidator = OperationValidator.getInstance();
-        InputReader operationInputReader = new InputReader(operationValidator);
-        Map<Operator, IArithmeticOperation>  arithmeticOperations = Map.of(ADDITION_OPERATOR, AdditionOperation.getInstance(),
-                SUBTRACTION_OPERATOR, SubtractionOperation.getInstance(),
-                MULTIPLICATION_OPERATOR, MultiplicationOperation.getInstance(),
-                DIVISION_OPERATOR, DivisionOperation.getInstance()
-        );
-
-        while (true) {
-            try {
-                System.out.println("Every input either takes an operand or operation and maximum operand input size is 9.");
-                calculate(operandInputReader, operationInputReader, arithmeticOperations);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-        }
-
+    private CalculatorApp(InputReader operandInputReader, InputReader operationInputReader, Map<Operator, IArithmeticOperation> arithmeticOperations) {
+        this.operandInputReader = operandInputReader;
+        this.operationInputReader = operationInputReader;
+        this.arithmeticOperations = arithmeticOperations;
     }
 
-    public static void calculate(InputReader operandInputReader, InputReader operationInputReader, Map<Operator, IArithmeticOperation> arithmeticOperations) {
+    public static CalculatorApp getInstance(InputReader operandInputReader, InputReader operationInputReader, Map<Operator, IArithmeticOperation> arithmeticOperations) {
+        if (SINGLE_INSTANCE == null) {
+            SINGLE_INSTANCE = new CalculatorApp(operandInputReader, operationInputReader, arithmeticOperations);
+        }
+
+        return SINGLE_INSTANCE;
+    }
+
+
+    public double calculate() {
 
         final String firstNumber = operandInputReader.getInput();
         final String operator = operationInputReader.getInput();
@@ -53,9 +49,8 @@ public class CalculatorApp {
 
         final IArithmeticOperation arithmeticOperation = arithmeticOperations.get(Operator.getEnum(operator));
 
-        double result = arithmeticOperation.apply(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber));
+        return arithmeticOperation.apply(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber));
 
-        System.out.printf("Result: %f%n", result);
     }
 
 }
