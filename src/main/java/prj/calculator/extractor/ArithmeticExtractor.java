@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class ArithmeticExtractor implements IExtractor{
 
-    private static final Pattern VALIDATION_RULE = Pattern.compile("(\\d+(\\.\\d+)?)([+\\-*/])(\\d+(\\.\\d+)?)");
 
     private static ArithmeticExtractor SINGLE_INSTANCE;
 
@@ -25,19 +24,11 @@ public class ArithmeticExtractor implements IExtractor{
         return SINGLE_INSTANCE;
     }
 
-    public CalculatorInput extract(String inputString) {
+    public CalculatorInput extract(List<String> inputs) {
 
-        Matcher patterMatcher = VALIDATION_RULE.matcher(inputString);
+        final List<Double> operands = List.of(Double.parseDouble(inputs.get(0)), Double.parseDouble(inputs.get(2)));
 
-        patterMatcher.find();
-        final String firstNumber = patterMatcher.group(1);
-        final String secondNumber = patterMatcher.group(4);
-
-        final List<Double> operands = List.of(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber));
-
-        final String operator = patterMatcher.group(3);
-
-        return new CalculatorInput(operands, Operator.getEnum(operator));
+        return new CalculatorInput(operands, Operator.getEnum(inputs.get(1)));
 
     }
 }
