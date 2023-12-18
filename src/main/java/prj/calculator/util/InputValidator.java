@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputValidator implements IValidator{
-    private static final Pattern VALIDATION_RULE = Pattern.compile("\\d+(\\.\\d+)?[+\\-*/]\\d+(\\.\\d+)?");
+    private static final Pattern VALIDATION_RULE = Pattern.compile("(\\d+(\\.\\d+)?)([+\\-*/])(\\d+(\\.\\d+)?)");
     private static final int INPUT_SIZE_LIMIT = 9;
 
     private static InputValidator SINGLE_INSTANCE;
@@ -32,7 +32,7 @@ public class InputValidator implements IValidator{
             throw new IllegalArgumentException(String.format("%s is an invalid input", input));
         }
 
-        if (patterMatcher.group(0).length() > INPUT_SIZE_LIMIT || patterMatcher.group(2).length() > INPUT_SIZE_LIMIT) {
+        if (patterMatcher.group(1).length() > INPUT_SIZE_LIMIT || patterMatcher.group(4).length() > INPUT_SIZE_LIMIT) {
             throw new IllegalArgumentException("Operand Size Exceed");
         }
 

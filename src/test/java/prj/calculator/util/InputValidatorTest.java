@@ -29,10 +29,10 @@ public class InputValidatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "1+1",
-            "1-1",
-            "1*1",
-            "1/1"
+            "1+2",
+            "1-30",
+            "21*4",
+            "1/5"
     })
     void testCanPassValidWholeNumberInput(String input) {
         assertTrue(inputValidator.validate(input));
@@ -40,7 +40,7 @@ public class InputValidatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "1.1+1.1"
+            "1.1+1.2"
     })
     void testCanPassValidDecimalNumberInput(String input) {
         assertTrue(inputValidator.validate(input));
