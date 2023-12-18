@@ -5,8 +5,6 @@ import prj.calculator.operation.*;
 import prj.calculator.reader.InputReader;
 import prj.calculator.util.IValidator;
 import prj.calculator.util.InputValidator;
-import prj.calculator.util.OperandValidator;
-import prj.calculator.util.OperationValidator;
 
 import java.util.Map;
 
