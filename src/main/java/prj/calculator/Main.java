@@ -1,5 +1,7 @@
 package prj.calculator;
 
+import prj.calculator.extractor.ArithmeticExtractor;
+import prj.calculator.extractor.IExtractor;
 import prj.calculator.model.Operator;
 import prj.calculator.operation.*;
 import prj.calculator.reader.InputReader;
@@ -15,17 +17,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        IValidator inputValidator = InputValidator.getInstance();
-
-        InputReader inputReader = InputReader.getInstance();
-
-        Map<Operator, IArithmeticOperation> arithmeticOperations = Map.of(ADDITION_OPERATOR, AdditionOperation.getInstance(),
+        final InputReader inputReader = InputReader.getInstance();
+        final IValidator inputValidator = InputValidator.getInstance();
+        final IExtractor extractor = ArithmeticExtractor.getInstance();
+        final Map<Operator, IArithmeticOperation> arithmeticOperations = Map.of(ADDITION_OPERATOR, AdditionOperation.getInstance(),
                 SUBTRACTION_OPERATOR, SubtractionOperation.getInstance(),
                 MULTIPLICATION_OPERATOR, MultiplicationOperation.getInstance(),
                 DIVISION_OPERATOR, DivisionOperation.getInstance()
         );
 
-        CalculatorApp calculatorApp = CalculatorApp.getInstance(inputReader, arithmeticOperations, inputValidator);
+        CalculatorApp calculatorApp = CalculatorApp.getInstance(inputReader, inputValidator, extractor, arithmeticOperations);
 
         while (true) {
             try {
