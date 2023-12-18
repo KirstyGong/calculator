@@ -2,6 +2,9 @@ package prj.calculator.reader;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import prj.calculator.util.IValidator;
 
 import java.io.ByteArrayInputStream;
@@ -14,24 +17,23 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class InputReaderTest {
-    private IValidator iValidator;
     private InputReader inputReader;
 
     @BeforeEach
     public void setup() {
-        iValidator = mock(IValidator.class);
-        inputReader = new InputReader(iValidator);
+        inputReader = InputReader.getInstance();
     }
 
-    @Test
-    void testCanReadValidInput() throws IOException {
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1",
+            "+"
+    })
+    void testCanReadInput(String inputStr) throws IOException {
         //Given
-        final String inputStr = "someValidInput";
 
         try (InputStream input = new ByteArrayInputStream(inputStr.getBytes())) {
             System.setIn(input);
-
-            when(iValidator.validate(inputStr)).thenReturn(true);
 
             //When
             final String result = inputReader.getInput();
@@ -41,20 +43,5 @@ public class InputReaderTest {
         }
     }
 
-    @Test
-    void testRaiseExceptionForInValidInput() throws IOException {
-        //Given
-        final String inputStr = "someInValidInput";
 
-        try (InputStream input = new ByteArrayInputStream(inputStr.getBytes())) {
-
-            System.setIn(input);
-            when(iValidator.validate(inputStr)).thenReturn(false);
-
-            //Then
-            assertThrows(IllegalArgumentException.class, inputReader::getInput);
-
-        }
-
-    }
 }

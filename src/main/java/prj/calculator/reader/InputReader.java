@@ -1,5 +1,6 @@
 package prj.calculator.reader;
 
+import prj.calculator.operation.AdditionOperation;
 import prj.calculator.util.IValidator;
 
 import java.io.BufferedReader;
@@ -8,10 +9,18 @@ import java.io.InputStreamReader;
 
 public class InputReader implements IInputReader {
 
-    private final IValidator validator;
+    private static InputReader SINGLE_INSTANCE;
 
-    public InputReader(IValidator validator) {
-        this.validator = validator;
+    private InputReader() {
+
+    }
+
+    public static InputReader getInstance() {
+        if (SINGLE_INSTANCE == null) {
+            SINGLE_INSTANCE = new InputReader();
+        }
+
+        return SINGLE_INSTANCE;
     }
 
     public String getInput() {
@@ -20,13 +29,8 @@ public class InputReader implements IInputReader {
         System.out.println("Input:");
 
         try {
-            String input = reader.readLine();
-
-            if (!validator.validate(input)) {
-                throw new IllegalArgumentException("Invalid Operand");
-            }
-            return input;
-        } catch (IOException | IllegalArgumentException exception) {
+            return reader.readLine();
+        } catch (IOException exception) {
             throw new IllegalArgumentException(exception.getMessage());
         }
     }
