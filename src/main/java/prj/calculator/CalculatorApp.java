@@ -7,7 +7,6 @@ import prj.calculator.operation.IArithmeticOperation;
 import prj.calculator.reader.IInputReader;
 import prj.calculator.util.IValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

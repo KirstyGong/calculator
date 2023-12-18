@@ -4,10 +4,8 @@ import prj.calculator.model.CalculatorInput;
 import prj.calculator.model.Operator;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class ArithmeticExtractor implements IExtractor{
+public class ArithmeticExtractor implements IExtractor {
 
 
     private static ArithmeticExtractor SINGLE_INSTANCE;
