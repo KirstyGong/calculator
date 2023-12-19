@@ -12,6 +12,7 @@ import prj.calculator.util.IValidator;
 import prj.calculator.util.TwoInputArithmeticValidator;
 
 import java.util.List;
+import java.util.concurrent.locks.StampedLock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,11 +27,12 @@ public class CalculatorAppTest {
     private CalculatorApp calculatorApp;
     private IExtractor mockedExtractor;
     private IOperationHandler operationHandler;
+    private TwoInputArithmeticValidator mockedInputValidator;
 
     @BeforeEach
     public void setup() {
         mockedInputReader = mock(TwoInputArithmeticReader.class);
-        IValidator mockedInputValidator = mock(TwoInputArithmeticValidator.class);
+        mockedInputValidator = mock(TwoInputArithmeticValidator.class);
         mockedExtractor = mock(TwoInputArithmeticExtractor.class);
         operationHandler = mock(AdditionOperation.class);
 
@@ -65,6 +67,8 @@ public class CalculatorAppTest {
 
     @Test
     void testRaiseExceptionForInvalidInput() {
+        when(mockedInputValidator.validate(anyString()))
+                .thenThrow(IllegalArgumentException.class);
         assertThrows(IllegalArgumentException.class, () -> calculatorApp.calculate());
     }
 
