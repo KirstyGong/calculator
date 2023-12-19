@@ -1,25 +1,22 @@
 package prj.calculator.reader;
 
-import prj.calculator.operation.AdditionOperation;
-import prj.calculator.util.IValidator;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputReader implements IInputReader {
+public class TwoInputArithmeticReader implements IInputReader {
 
-    private static InputReader SINGLE_INSTANCE;
+    private static TwoInputArithmeticReader SINGLE_INSTANCE;
 
-    private InputReader() {
+    private TwoInputArithmeticReader() {
 
     }
 
-    public static InputReader getInstance() {
+    public static TwoInputArithmeticReader getInstance() {
         if (SINGLE_INSTANCE == null) {
-            SINGLE_INSTANCE = new InputReader();
+            SINGLE_INSTANCE = new TwoInputArithmeticReader();
         }
 
         return SINGLE_INSTANCE;

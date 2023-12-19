@@ -5,10 +5,9 @@ import prj.calculator.model.Operator;
 
 import java.util.List;
 
-import static prj.calculator.model.Operator.DIVISION_OPERATOR;
 import static prj.calculator.model.Operator.SUBTRACTION_OPERATOR;
 
-public class SubtractionOperation implements IOperationHandler{
+public class SubtractionOperation implements IOperationHandler {
     private static SubtractionOperation SINGLE_INSTANCE;
 
     private final IOperationHandler nextHandler;
@@ -25,6 +24,9 @@ public class SubtractionOperation implements IOperationHandler{
         return SINGLE_INSTANCE;
     }
 
+    /**
+     * Testing purpose only
+     */
     public static void destroy() {
         SINGLE_INSTANCE = null;
     }
@@ -33,7 +35,7 @@ public class SubtractionOperation implements IOperationHandler{
 
         if (operator.equals(SUBTRACTION_OPERATOR)) {
             return apply(inputs);
-        }  else {
+        } else {
             if (nextHandler == null) {
                 throw new IllegalArgumentException("Invalid operator");
             }

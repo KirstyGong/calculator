@@ -11,12 +11,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class InputReaderTest {
-    private InputReader inputReader;
+public class TwoInputArithmeticReaderTest {
+    private TwoInputArithmeticReader twoInputArithmeticReader;
 
     @BeforeEach
     public void setup() {
-        inputReader = InputReader.getInstance();
+        twoInputArithmeticReader = TwoInputArithmeticReader.getInstance();
     }
 
     @ParameterizedTest
@@ -31,7 +31,7 @@ public class InputReaderTest {
             System.setIn(input);
 
             //When
-            final List<String> result = inputReader.getInput();
+            final List<String> result = twoInputArithmeticReader.getInput();
 
             //Then
             final List<String> expected = List.of(inputStr, inputStr, inputStr);

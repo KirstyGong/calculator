@@ -3,19 +3,19 @@ package prj.calculator.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class InputValidator implements IValidator{
+public class TwoInputArithmeticValidator implements IValidator {
     private static final Pattern VALIDATION_RULE = Pattern.compile("(\\d+(\\.\\d+)?)([+\\-*/])(\\d+(\\.\\d+)?)");
     private static final int INPUT_SIZE_LIMIT = 9;
 
-    private static InputValidator SINGLE_INSTANCE;
+    private static TwoInputArithmeticValidator SINGLE_INSTANCE;
 
-    private InputValidator() {
+    private TwoInputArithmeticValidator() {
 
     }
 
-    public static InputValidator getInstance() {
+    public static TwoInputArithmeticValidator getInstance() {
         if (SINGLE_INSTANCE == null) {
-            SINGLE_INSTANCE = new InputValidator();
+            SINGLE_INSTANCE = new TwoInputArithmeticValidator();
         }
 
         return SINGLE_INSTANCE;

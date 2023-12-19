@@ -7,7 +7,7 @@ import java.util.List;
 
 import static prj.calculator.model.Operator.DIVISION_OPERATOR;
 
-public class DivisionOperation implements IOperationHandler{
+public class DivisionOperation implements IOperationHandler {
 
     private static DivisionOperation SINGLE_INSTANCE;
 
@@ -26,6 +26,9 @@ public class DivisionOperation implements IOperationHandler{
         return SINGLE_INSTANCE;
     }
 
+    /**
+     * Testing purpose only
+     */
     public static void destroy() {
         SINGLE_INSTANCE = null;
     }
@@ -34,7 +37,7 @@ public class DivisionOperation implements IOperationHandler{
 
         if (operator.equals(DIVISION_OPERATOR)) {
             return apply(inputs);
-        }  else {
+        } else {
             if (nextHandler == null) {
                 throw new IllegalArgumentException("Invalid operation");
             }

@@ -5,18 +5,18 @@ import prj.calculator.model.Operator;
 
 import java.util.List;
 
-public class ArithmeticExtractor implements IExtractor {
+public class TwoInputArithmeticExtractor implements IExtractor {
 
 
-    private static ArithmeticExtractor SINGLE_INSTANCE;
+    private static TwoInputArithmeticExtractor SINGLE_INSTANCE;
 
-    private ArithmeticExtractor() {
+    private TwoInputArithmeticExtractor() {
 
     }
 
-    public static ArithmeticExtractor getInstance() {
+    public static TwoInputArithmeticExtractor getInstance() {
         if (SINGLE_INSTANCE == null) {
-            SINGLE_INSTANCE = new ArithmeticExtractor();
+            SINGLE_INSTANCE = new TwoInputArithmeticExtractor();
         }
 
         return SINGLE_INSTANCE;

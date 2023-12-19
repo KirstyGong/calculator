@@ -1,22 +1,23 @@
 package prj.calculator;
 
-import prj.calculator.extractor.ArithmeticExtractor;
 import prj.calculator.extractor.IExtractor;
-import prj.calculator.model.Operator;
-import prj.calculator.operation.*;
-import prj.calculator.reader.InputReader;
+import prj.calculator.extractor.TwoInputArithmeticExtractor;
+import prj.calculator.operation.AdditionOperation;
+import prj.calculator.operation.DivisionOperation;
+import prj.calculator.operation.IOperationHandler;
+import prj.calculator.operation.MultiplicationOperation;
+import prj.calculator.operation.SubtractionOperation;
+import prj.calculator.reader.TwoInputArithmeticReader;
 import prj.calculator.util.IValidator;
-import prj.calculator.util.InputValidator;
-
-import java.util.Map;
+import prj.calculator.util.TwoInputArithmeticValidator;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        final InputReader inputReader = InputReader.getInstance();
-        final IValidator inputValidator = InputValidator.getInstance();
-        final IExtractor extractor = ArithmeticExtractor.getInstance();
+        final TwoInputArithmeticReader twoInputArithmeticReader = TwoInputArithmeticReader.getInstance();
+        final IValidator inputValidator = TwoInputArithmeticValidator.getInstance();
+        final IExtractor extractor = TwoInputArithmeticExtractor.getInstance();
         final IOperationHandler operationHandler = AdditionOperation.getInstance(
                 SubtractionOperation.getInstance(
                         MultiplicationOperation.getInstance(
@@ -25,12 +26,12 @@ public class Main {
                 )
         );
 
-        CalculatorApp calculatorApp = CalculatorApp.getInstance(inputReader, inputValidator, extractor, operationHandler);
+        CalculatorApp calculatorApp = CalculatorApp.getInstance(twoInputArithmeticReader, inputValidator, extractor, operationHandler);
 
         while (true) {
             try {
                 System.out.println("\nEvery input either takes an operand or operation and maximum operand input size is 9.");
-                System.out.println(String.format("Result: %f", calculatorApp.calculate()));
+                System.out.printf("Result: %f%n", calculatorApp.calculate());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

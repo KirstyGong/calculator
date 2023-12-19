@@ -2,15 +2,15 @@ package prj.calculator;
 
 import prj.calculator.extractor.IExtractor;
 import prj.calculator.model.CalculatorInput;
-import prj.calculator.model.Operator;
 import prj.calculator.operation.IOperationHandler;
 import prj.calculator.reader.IInputReader;
 import prj.calculator.util.IValidator;
 
 import java.util.List;
-import java.util.Map;
 
 public class CalculatorApp {
+
+    private static final String JOINING_STRING = "";
 
     private static CalculatorApp SINGLE_INSTANCE;
 
@@ -48,9 +48,9 @@ public class CalculatorApp {
 
         final List<String> input = inputReader.getInput();
 
-        inputValidator.validate(String.join("", input));
+        inputValidator.validate(String.join(JOINING_STRING, input));
 
-        CalculatorInput calculatorInput= extractor.extract(input);
+        CalculatorInput calculatorInput = extractor.extract(input);
 
         return operationHandler.handle(calculatorInput.getOperator(), calculatorInput.getOperands());
     }

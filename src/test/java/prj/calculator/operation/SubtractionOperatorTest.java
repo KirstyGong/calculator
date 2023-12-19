@@ -5,10 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static prj.calculator.model.Operator.*;
+import static prj.calculator.model.Operator.DIVISION_OPERATOR;
+import static prj.calculator.model.Operator.MULTIPLICATION_OPERATOR;
+import static prj.calculator.model.Operator.SUBTRACTION_OPERATOR;
 
 public class SubtractionOperatorTest {
     private static final double DELTA = 0.000001d;

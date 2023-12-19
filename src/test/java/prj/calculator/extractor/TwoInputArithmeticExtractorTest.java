@@ -9,13 +9,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ArithmeticExtractorTest {
+public class TwoInputArithmeticExtractorTest {
 
-    private ArithmeticExtractor arithmeticExtractor;
+    private TwoInputArithmeticExtractor twoInputArithmeticExtractor;
 
     @BeforeEach
     public void setup() {
-        arithmeticExtractor = ArithmeticExtractor.getInstance();
+        twoInputArithmeticExtractor = TwoInputArithmeticExtractor.getInstance();
     }
 
     @Test
@@ -24,7 +24,7 @@ public class ArithmeticExtractorTest {
         final List<String> inputString = List.of("1.0", "+", "2.0");
 
         // When
-        CalculatorInput calculatorInput = arithmeticExtractor.extract(inputString);
+        CalculatorInput calculatorInput = twoInputArithmeticExtractor.extract(inputString);
 
         //Then
         assertEquals(List.of(1.0, 2.0), calculatorInput.getOperands());
@@ -37,7 +37,7 @@ public class ArithmeticExtractorTest {
         final List<String> inputString = List.of("1.0", "-", "2.0");
 
         // When
-        CalculatorInput calculatorInput = arithmeticExtractor.extract(inputString);
+        CalculatorInput calculatorInput = twoInputArithmeticExtractor.extract(inputString);
 
         //Then
         assertEquals(List.of(1.0, 2.0), calculatorInput.getOperands());
@@ -50,7 +50,7 @@ public class ArithmeticExtractorTest {
         final List<String> inputString = List.of("1.0", "*", "2.0");
 
         // When
-        CalculatorInput calculatorInput = arithmeticExtractor.extract(inputString);
+        CalculatorInput calculatorInput = twoInputArithmeticExtractor.extract(inputString);
 
         //Then
         assertEquals(List.of(1.0, 2.0), calculatorInput.getOperands());
@@ -63,7 +63,7 @@ public class ArithmeticExtractorTest {
         final List<String> inputString = List.of("1.0", "/", "2.0");
 
         // When
-        CalculatorInput calculatorInput = arithmeticExtractor.extract(inputString);
+        CalculatorInput calculatorInput = twoInputArithmeticExtractor.extract(inputString);
 
         //Then
         assertEquals(List.of(1.0, 2.0), calculatorInput.getOperands());
@@ -77,16 +77,12 @@ public class ArithmeticExtractorTest {
         final List<String> inputString = List.of("1.1", "+", "2.2");
 
         // When
-        CalculatorInput calculatorInput = arithmeticExtractor.extract(inputString);
+        CalculatorInput calculatorInput = twoInputArithmeticExtractor.extract(inputString);
 
         //Then
         assertEquals(List.of(1.1, 2.2), calculatorInput.getOperands());
         assertEquals(Operator.getEnum(inputString.get(1)), calculatorInput.getOperator());
     }
-
-
-
-
 
 
 }

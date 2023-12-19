@@ -5,15 +5,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class InputValidatorTest {
+public class TwoInputArithmeticValidatorTest {
 
-    private InputValidator inputValidator;
+    private TwoInputArithmeticValidator twoInputArithmeticValidator;
 
     @BeforeEach
     public void setup() {
-        inputValidator = InputValidator.getInstance();
+        twoInputArithmeticValidator = TwoInputArithmeticValidator.getInstance();
     }
 
     @ParameterizedTest
@@ -24,7 +25,7 @@ public class InputValidatorTest {
             "\n"
     })
     void testCanFailNullAndEmpty(String input) {
-        assertThrows(IllegalArgumentException.class, () -> inputValidator.validate(input));
+        assertThrows(IllegalArgumentException.class, () -> twoInputArithmeticValidator.validate(input));
     }
 
     @ParameterizedTest
@@ -35,7 +36,7 @@ public class InputValidatorTest {
             "1/5"
     })
     void testCanPassValidWholeNumberInput(String input) {
-        assertTrue(inputValidator.validate(input));
+        assertTrue(twoInputArithmeticValidator.validate(input));
     }
 
     @ParameterizedTest
@@ -43,7 +44,7 @@ public class InputValidatorTest {
             "1.1+1.2"
     })
     void testCanPassValidDecimalNumberInput(String input) {
-        assertTrue(inputValidator.validate(input));
+        assertTrue(twoInputArithmeticValidator.validate(input));
     }
 
     @ParameterizedTest
@@ -56,6 +57,6 @@ public class InputValidatorTest {
             "9+9999999999"
     })
     void testCanFailInValidInput(String input) {
-        assertThrows(IllegalArgumentException.class, () -> inputValidator.validate(input));
+        assertThrows(IllegalArgumentException.class, () -> twoInputArithmeticValidator.validate(input));
     }
 }

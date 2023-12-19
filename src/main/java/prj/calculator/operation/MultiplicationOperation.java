@@ -7,7 +7,7 @@ import java.util.List;
 
 import static prj.calculator.model.Operator.MULTIPLICATION_OPERATOR;
 
-public class MultiplicationOperation implements IOperationHandler{
+public class MultiplicationOperation implements IOperationHandler {
     private static MultiplicationOperation SINGLE_INSTANCE;
 
     private final IOperationHandler nextHandler;
@@ -25,6 +25,9 @@ public class MultiplicationOperation implements IOperationHandler{
         return SINGLE_INSTANCE;
     }
 
+    /**
+     * Testing purpose only
+     */
     public static void destroy() {
         SINGLE_INSTANCE = null;
     }
@@ -33,7 +36,7 @@ public class MultiplicationOperation implements IOperationHandler{
 
         if (operator.equals(MULTIPLICATION_OPERATOR)) {
             return apply(inputs);
-        }  else {
+        } else {
             if (nextHandler == null) {
                 throw new IllegalArgumentException("Invalid Operation");
             }

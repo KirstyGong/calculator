@@ -7,7 +7,7 @@ import java.util.List;
 
 import static prj.calculator.model.Operator.ADDITION_OPERATOR;
 
-public class AdditionOperation implements IOperationHandler{
+public class AdditionOperation implements IOperationHandler {
 
     private static AdditionOperation SINGLE_INSTANCE;
 
@@ -25,6 +25,9 @@ public class AdditionOperation implements IOperationHandler{
         return SINGLE_INSTANCE;
     }
 
+    /**
+     * Use for test purpose only
+     */
     public static void destroy() {
         SINGLE_INSTANCE = null;
     }
@@ -33,7 +36,7 @@ public class AdditionOperation implements IOperationHandler{
 
         if (operator.equals(ADDITION_OPERATOR)) {
             return apply(inputs);
-        }  else {
+        } else {
             if (nextHandler == null) {
                 throw new IllegalArgumentException("Invalid Operator");
             }
@@ -42,7 +45,7 @@ public class AdditionOperation implements IOperationHandler{
 
     }
 
-    private double apply(List <Double> inputs) {
+    private double apply(List<Double> inputs) {
         return inputs.stream()
                 .mapToDouble(Double::doubleValue)
                 .sum();
