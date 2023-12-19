@@ -1,26 +1,48 @@
 package prj.calculator.operation;
 
 
+import prj.calculator.model.Operator;
+
 import java.util.List;
 
-public class DivisionOperation implements IArithmeticOperation {
+import static prj.calculator.model.Operator.DIVISION_OPERATOR;
+
+public class DivisionOperation implements IOperationHandler{
 
     private static DivisionOperation SINGLE_INSTANCE;
 
-    private DivisionOperation() {
+    private final IOperationHandler nextHandler;
 
+    private DivisionOperation(IOperationHandler nextHandler) {
+
+        this.nextHandler = nextHandler;
     }
 
-    public static DivisionOperation getInstance() {
+    public static DivisionOperation getInstance(IOperationHandler nextHandler) {
         if (SINGLE_INSTANCE == null) {
-            SINGLE_INSTANCE = new DivisionOperation();
+            SINGLE_INSTANCE = new DivisionOperation(nextHandler);
         }
 
         return SINGLE_INSTANCE;
     }
 
+    public static void destroy() {
+        SINGLE_INSTANCE = null;
+    }
 
-    @Override
+    public double handle(Operator operator, List<Double> inputs) {
+
+        if (operator.equals(DIVISION_OPERATOR)) {
+            return apply(inputs);
+        }  else {
+            if (nextHandler == null) {
+                throw new IllegalArgumentException("Invalid operation");
+            }
+            return nextHandler.handle(DIVISION_OPERATOR, inputs);
+        }
+
+    }
+
     public double apply(List<Double> inputs) {
         return inputs.stream()
                 .mapToDouble(Double::doubleValue)
@@ -32,4 +54,5 @@ public class DivisionOperation implements IArithmeticOperation {
                 })
                 .orElseThrow();
     }
+
 }
