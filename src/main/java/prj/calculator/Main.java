@@ -13,6 +13,10 @@ import prj.calculator.util.TwoInputArithmeticValidator;
 
 public class Main {
 
+    public static double calculate(CalculatorApp calculatorApp) {
+        return calculatorApp.calculate();
+    }
+
     public static void main(String[] args) {
 
         final TwoInputArithmeticReader twoInputArithmeticReader = TwoInputArithmeticReader.getInstance();
@@ -31,7 +35,7 @@ public class Main {
         while (true) {
             try {
                 System.out.println("\nEvery input either takes an operand or operation and maximum operand input size is 9.");
-                System.out.printf("Result: %f%n", calculatorApp.calculate());
+                System.out.printf("Result: %f%n", calculate(calculatorApp));
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
