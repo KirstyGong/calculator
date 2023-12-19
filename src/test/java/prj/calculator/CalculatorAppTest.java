@@ -7,7 +7,7 @@ import prj.calculator.extractor.IExtractor;
 import prj.calculator.model.CalculatorInput;
 import prj.calculator.model.Operator;
 import prj.calculator.operation.AdditionOperation;
-import prj.calculator.operation.IArithmeticOperation;
+import prj.calculator.operation.IOperationHandler;
 import prj.calculator.reader.InputReader;
 import prj.calculator.util.IValidator;
 import prj.calculator.util.InputValidator;
@@ -23,23 +23,22 @@ import static prj.calculator.model.Operator.ADDITION_OPERATOR;
 
 public class CalculatorAppTest {
     private InputReader mockedInputreader;
-    private AdditionOperation mockedAdditionOperation;
     private CalculatorApp calculatorApp;
     private IExtractor mockedExtractor;
+    private IOperationHandler operationHandler;
 
     @BeforeEach
     public void setup() {
         mockedInputreader = mock(InputReader.class);
-        mockedAdditionOperation = mock(AdditionOperation.class);
         IValidator mockedInputValidator = mock(InputValidator.class);
         mockedExtractor = mock(ArithmeticExtractor.class);
+        operationHandler = mock(AdditionOperation.class);
 
-        Map<Operator, IArithmeticOperation> arithmeticOperations = Map.of(ADDITION_OPERATOR, mockedAdditionOperation
-        );
+        calculatorApp = CalculatorApp.getInstance(mockedInputreader, mockedInputValidator, mockedExtractor, operationHandler);
 
-        calculatorApp = CalculatorApp.getInstance(mockedInputreader, mockedInputValidator, mockedExtractor, arithmeticOperations);
-
-        when(mockedInputValidator.validate(anyString())).thenReturn(true).thenThrow(IllegalArgumentException.class);
+        when(mockedInputValidator.validate(anyString()))
+                .thenReturn(true)
+                .thenThrow(IllegalArgumentException.class);
     }
 
     @Test
@@ -52,7 +51,10 @@ public class CalculatorAppTest {
 
         when(mockedInputreader.getInput()).thenReturn(List.of(firstOperand, ADDITION_OPERATOR.value(), secondOperand));
         when(mockedExtractor.extract(anyList())).thenReturn(extractedLCalculatorInput);
-        when(mockedAdditionOperation.apply(extractedLCalculatorInput.getOperands())).thenReturn(expected);
+        when(operationHandler.handle(
+                extractedLCalculatorInput.getOperator(),
+                extractedLCalculatorInput.getOperands())
+        ).thenReturn(expected);
 
         //When
         double result = calculatorApp.calculate();
@@ -61,11 +63,8 @@ public class CalculatorAppTest {
         assertEquals(expected, result);
     }
 
-
     @Test
-    void testCanHandleInvalidInput() {
-
-        //Then
+    void testRaiseExceptionForInvalidInput() {
         assertThrows(IllegalArgumentException.class, () -> calculatorApp.calculate());
     }
 
