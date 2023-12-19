@@ -4,6 +4,7 @@ The application is build with Java and it can perform simple arithmatic calculat
 
 It take an input each time and it supprts up to 9 digits of operend input
 
-### Version
+## Version
 V1 -> main
+
 V2 -> improvement
